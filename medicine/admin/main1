@@ -1,0 +1,61 @@
+<?php 
+session_start();
+if(!isset($_SESSION["email"])){
+  header("location:../index.php");
+  exit();
+}
+include("../config/config.php");
+?>
+$result = mysqli_query($db, $sql);
+if(!$result){
+  die("Database Query Failed: " . mysqli_error($db));
+}
+<td><?php echo htmlspecialchars($rows['email']); ?></td>
+function searchTable(inputId, tableId) {
+  var input = document.getElementById(inputId);
+  var filter = input.value.toUpperCase();
+  var table = document.getElementById(tableId);
+  var tr = table.getElementsByTagName("tr");
+  var th = table.getElementsByTagName("th");
+
+  for (var i = 1; i < tr.length; i++) {
+    tr[i].style.display = "none";
+    for (var j = 0; j < th.length; j++) {
+      var td = tr[i].getElementsByTagName("td")[j];
+      if (td && td.innerHTML.toUpperCase().includes(filter)) {
+        tr[i].style.display = "";
+        break;
+      }
+    }
+  }
+}
+<?php
+session_start();
+session_unset();
+session_destroy();
+header("location:../index.php");
+exit();
+?>
+if (time() - $_SESSION['last_login_timestamp'] > 900) { // 15 minutes
+    session_destroy();
+    header("location:../index.php");
+}
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+<td>
+  <a href="delete_donor.php?id=<?php echo $rows['donor_id']; ?>" 
+     class="btn btn-danger btn-sm" 
+     onclick="return confirm('Are you sure?')">Delete</a>
+</td>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('#myTable3').DataTable();
+});
+</script>
+<input type="email" name="email" required>
+<input type="tel" name="phone" pattern="[0-9]{10}" required>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
